@@ -3,17 +3,17 @@ class LinkedList {
     this.head = head
   }
 
-  iterate() {
-    const all_values = [];
+  iterate(callback) {
+    const all_nodes = [];
     let this_node = this.head;
-    all_values.push(this_node.value);
+    all_nodes.push(this_node);
     while (this_node.next){
       this_node = this_node.next;
-      all_values.push(this_node.value)
+      all_nodes.push(this_node)
     }
 
-    for (const val of all_values){
-      console.log(val)
+    for (const node of all_nodes){
+      callback(node);
     }
   }
 
@@ -79,7 +79,11 @@ class Node {
 if (require.main === module) {
   const head = new Node('hi again', new Node('but why?'))
   const list = new LinkedList(head)
-  list.iterate()  
+  function printNode(node){
+    console.log(node.value);
+  }
+  
+  list.iterate(printNode)  
 }
 
 module.exports = {
