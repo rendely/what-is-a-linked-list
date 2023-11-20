@@ -82,9 +82,9 @@ class LinkedList {
       this.addFirst(node)
     };
     this.iterate((currNode, currIdx) => {
-      if (currIdx === idx -1) {
+      if (currIdx === idx - 1) {
         node.next = currNode.next.next;
-        currNode.next = node;        
+        currNode.next = node;
       }
     })
     return node;
@@ -99,7 +99,7 @@ class LinkedList {
     }
 
     this.iterate((currNode, currIdx) => {
-      if (currIdx === idx -1) {
+      if (currIdx === idx - 1) {
         node.next = currNode.next;
         currNode.next = node;
       }
@@ -108,23 +108,22 @@ class LinkedList {
 
   // remove the node at the given index, and return it
   remove(idx) {
-    if (idx === 0) {return this.removeFirst()}
+    if (idx === 0) { return this.removeFirst() }
 
     let removed = null;
 
     this.iterate((currNode, currIdx) => {
-      if (currIdx === idx-1){
+      if (currIdx === idx - 1) {
         removed = currNode.next;
-        currNode.next = currNode.next.next;   
+        currNode.next = currNode.next.next;
       }
     })
 
-    if (removed) return removed;
+    return removed;
 
-    return this.removeLast();
   }
 
-  clear(){
+  clear() {
     this.head = null;
   }
 }
@@ -141,7 +140,7 @@ if (require.main === module) {
   list = new LinkedList(head);
   const rem = list.remove(1);
   console.log(rem);
-  
+
 }
 
 module.exports = {
