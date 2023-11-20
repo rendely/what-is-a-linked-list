@@ -6,7 +6,7 @@ class LinkedList {
   iterate(callback) {
     const all_nodes = [];
     let this_node = this.head;
-    if (this_node.value === null) return [];
+    if (!this_node) return [];
     all_nodes.push(this_node);
     while (this_node.next){
       this_node = this_node.next;
@@ -43,19 +43,38 @@ class LinkedList {
   // add node to end of list, no nodes should be removed
   // you may wish to use the iterate method
   addLast(node) {
+    if (!this.head) {
+      this.head = node;
+      return;
+    }
+    let lastNode = null;
+    this.iterate((currNode) => {
+      lastNode = currNode;
+    });
+    lastNode.next = node;
 
   }
 
   // remove the first Node in the list and update head
   // and return the removed node
   removeFirst() {
-
+    if (!this.head) return null;
+    const oldHead = this.head;
+    this.head = this.head.next;
+    return oldHead;
   }
 
   // remove the tail node, iterate may be helpful
   // return the node you just removed
   removeLast() {
-
+    if (!this.head) return null;
+    let secondLastNode = null;
+    this.iterate((currNode) => {
+      if (currNode.next) secondLastNode = currNode;
+    });
+    const lastNode = secondLastNode.next;
+    secondLastNode.next = null;
+    return lastNode;
   }
 
   // replace the node at the given index with the given node
