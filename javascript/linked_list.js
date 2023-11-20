@@ -1,6 +1,6 @@
 class LinkedList {
-  constructor() {
-
+  constructor(head=null) {
+    this.head = head
   }
 
   iterate() {
@@ -60,8 +60,9 @@ class LinkedList {
 }
 
 class Node {
-  constructor() {
-    
+  constructor(value=null, next=null) {
+    this.value = value;
+    this.next = next;
   }
 }
 
