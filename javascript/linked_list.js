@@ -4,18 +4,15 @@ class LinkedList {
   }
 
   iterate(callback) {
-    const all_nodes = [];
+
     let this_node = this.head;
     if (!this_node) return [];
-    all_nodes.push(this_node);
-    while (this_node.next){
+    
+    while (this_node){
+      callback(this_node);
       this_node = this_node.next;
-      all_nodes.push(this_node)
     }
 
-    for (const node of all_nodes){
-      callback(node);
-    }
   }
 
   // print each node's value on its own line
