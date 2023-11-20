@@ -93,20 +93,18 @@ class LinkedList {
   // insert the node at the given index
   // no existing nodes should be removed or replaced
   insert(idx, node) {
-    if (idx == 0) this.addFirst(node);
+    if (idx == 0) {
+      this.addFirst(node);
+      return;
+    }
 
-    // let checkAdded = false;
-    // this.iterate((currNode, currIdx) => {
-    //   console.log(currNode, currIdx);
-    //   if (currIdx === idx) {
-    //     node.next = currNode;
-    //     currNode = node;
-    //     checkAdded = true;
-    //   }
-    // });
-
-    // if (!checkAdded) this.addLast(node);
-
+    this.iterate((currNode, currIdx) => {
+      if (currIdx === idx -1) {
+        node.next = currNode.next;
+        currNode.next = node;
+        return;
+      }
+    });
   }
 
   // remove the node at the given index, and return it
@@ -125,13 +123,13 @@ class Node {
 if (require.main === module) {
   head = new Node('one', new Node('two', new Node('three')))
   list = new LinkedList(head)
-  list.iterate(n => console.log(n))
-  list.replace(0, new Node('1'))
-  list.iterate(n => console.log(n))
-  list.replace(1, new Node('2'))
-  list.iterate(n => console.log(n))
-  list.replace(2, new Node('3'))
-  list.iterate(n => console.log(n))
+  list.iterate(n => console.log(n.value))
+  list.insert(0, new Node('1'))
+  list.iterate(n => console.log(n.value))
+  list.insert(1, new Node('2'))
+  list.iterate(n => console.log(n.value))
+  list.insert(2, new Node('3'))
+  list.iterate(n => console.log(n.value))
 }
 
 module.exports = {
