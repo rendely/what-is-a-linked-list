@@ -102,14 +102,30 @@ class LinkedList {
       if (currIdx === idx -1) {
         node.next = currNode.next;
         currNode.next = node;
-        return;
       }
     });
   }
 
   // remove the node at the given index, and return it
   remove(idx) {
+    if (idx === 0) {return this.removeFirst()}
 
+    let removed = null;
+
+    this.iterate((currNode, currIdx) => {
+      if (currIdx === idx-1){
+        removed = currNode.next;
+        currNode.next = currNode.next.next;   
+      }
+    })
+
+    if (removed) return removed;
+
+    return this.removeLast();
+  }
+
+  clear(){
+    this.head = null;
   }
 }
 
@@ -122,14 +138,10 @@ class Node {
 
 if (require.main === module) {
   head = new Node('one', new Node('two', new Node('three')))
-  list = new LinkedList(head)
-  list.iterate(n => console.log(n.value))
-  list.insert(0, new Node('1'))
-  list.iterate(n => console.log(n.value))
-  list.insert(1, new Node('2'))
-  list.iterate(n => console.log(n.value))
-  list.insert(2, new Node('3'))
-  list.iterate(n => console.log(n.value))
+  list = new LinkedList(head);
+  const rem = list.remove(1);
+  console.log(rem);
+  
 }
 
 module.exports = {
