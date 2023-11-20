@@ -4,7 +4,17 @@ class LinkedList {
   }
 
   iterate() {
+    const all_values = [];
+    let this_node = this.head;
+    all_values.push(this_node.value);
+    while (this_node.next){
+      this_node = this_node.next;
+      all_values.push(this_node.value)
+    }
 
+    for (const val of all_values){
+      console.log(val)
+    }
   }
 
   // print each node's value on its own line
@@ -67,8 +77,9 @@ class Node {
 }
 
 if (require.main === module) {
-  // add your own tests in here
-  
+  const head = new Node('hi again', new Node('but why?'))
+  const list = new LinkedList(head)
+  list.iterate()  
 }
 
 module.exports = {
