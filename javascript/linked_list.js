@@ -1,5 +1,5 @@
 class LinkedList {
-  constructor(head=null) {
+  constructor(head = null) {
     this.head = head
   }
 
@@ -7,9 +7,10 @@ class LinkedList {
 
     let this_node = this.head;
     if (!this_node) return [];
-    
-    while (this_node){
-      callback(this_node);
+    let idx = 0;
+    while (this_node) {
+      callback(this_node, idx);
+      idx++;
       this_node = this_node.next;
     }
 
@@ -18,7 +19,7 @@ class LinkedList {
   // print each node's value on its own line
   // use your iterate method to be DRY! Don't get caught in the code rain, brrr.
   print() {
-    this.iterate((node) => console.log(node.value) )
+    this.iterate((node) => console.log(node.value))
   }
 
   // find the node with the target value and return it
@@ -26,7 +27,7 @@ class LinkedList {
   find(target) {
     let result = null;
     this.iterate((node) => {
-      if (node.value ===target) result = node
+      if (node.value === target) result = node
     });
     return result;
   }
@@ -76,12 +77,35 @@ class LinkedList {
 
   // replace the node at the given index with the given node
   replace(idx, node) {
-
+    if (idx === 0) {
+      this.removeFirst();
+      this.addFirst(node)
+    };
+    this.iterate((currNode, currIdx) => {
+      if (currIdx === idx -1) {
+        node.next = currNode.next.next;
+        currNode.next = node;        
+      }
+    })
+    return node;
   }
 
   // insert the node at the given index
   // no existing nodes should be removed or replaced
   insert(idx, node) {
+    if (idx == 0) this.addFirst(node);
+
+    // let checkAdded = false;
+    // this.iterate((currNode, currIdx) => {
+    //   console.log(currNode, currIdx);
+    //   if (currIdx === idx) {
+    //     node.next = currNode;
+    //     currNode = node;
+    //     checkAdded = true;
+    //   }
+    // });
+
+    // if (!checkAdded) this.addLast(node);
 
   }
 
@@ -92,17 +116,22 @@ class LinkedList {
 }
 
 class Node {
-  constructor(value=null, next=null) {
+  constructor(value = null, next = null) {
     this.value = value;
     this.next = next;
   }
 }
 
 if (require.main === module) {
-  const head = new Node()
-  const list = new LinkedList(head)
-  const values = []
-  list.iterate((node) => values.push(node));
+  head = new Node('one', new Node('two', new Node('three')))
+  list = new LinkedList(head)
+  list.iterate(n => console.log(n))
+  list.replace(0, new Node('1'))
+  list.iterate(n => console.log(n))
+  list.replace(1, new Node('2'))
+  list.iterate(n => console.log(n))
+  list.replace(2, new Node('3'))
+  list.iterate(n => console.log(n))
 }
 
 module.exports = {
